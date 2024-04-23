@@ -1,13 +1,14 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch } from "react";
 import { tipOptions } from "../data/db";
+import { TipAction } from "../reducers/tip-reducer";
 
 type TipPercentageFormProps = {
-  readonly setTip: Dispatch<SetStateAction<number>>;
+  readonly dispatch: Dispatch<TipAction>;
   readonly tip: number;
 };
 
 export default function TipPercentageForm({
-  setTip,
+  dispatch,
   tip,
 }: TipPercentageFormProps) {
   return (
@@ -21,7 +22,7 @@ export default function TipPercentageForm({
               id={option.id}
               name="tip"
               value={option.value}
-              onChange={(e) => setTip(+e.target.value)}
+              onChange={(e) => dispatch({ type: "add-tip", payload: { value: +e.target.value } })}
               checked={tip === +option.value}
             />
             <label htmlFor={option.id}>{option.label}</label>
